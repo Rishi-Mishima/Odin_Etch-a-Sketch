@@ -1,3 +1,40 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* make the grid centred horizontally  */
+/* make the grid at top of the page */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Horizontally center children */
+    margin-top: 20px;
+    /* Push the grid down a bit from the top */
+    font-family: sans-serif;
+}
+
+button {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff6961;
+    /* soft red */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reset:hover {
+    background-color: #ff4c4c;
+    /* darker red on hover */
+}
+
+
 #container {
     display: grid;
     grid-template-columns: repeat(16, 1fr);
@@ -13,4 +50,8 @@
     border: 1px solid #ddd;
     background-color: white;
 
+}
+
+.square {
+    transition: background-color 0.5s ease;
 }
