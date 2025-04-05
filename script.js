@@ -1,37 +1,46 @@
 const container = document.querySelector("#container");
-
-const gridsize = 16;
-
 const slideRange = document.getElementById("gridSize");
 const gridValue = document.getElementById("gridValue");
 const gridValue2 = document.getElementById("gridValue2");
 
-slideRange.addEventListener('input', changeGrid);
 
-function changeGrid() {
-    const size = slideRange.value;
+// initialize the grid
+let size = 16;
+
+gridValue.textContent = size;
+gridValue2.textContent = size;
+createGrid(size);
+
+// Change grid when slider moves
+slideRange.addEventListener('input', () => {
+    size = slideRange.value;
     gridValue.textContent = size;
     gridValue2.textContent = size;
-    recreateGrid(size);
-}
+    container.innerHTML = ""; // clear old grid
+    createGrid(size);
+});
 
 
 
 //--------------------------------
 
-for (let i = 0; i < gridsize * gridsize; i++) {
-    const square = document.createElement("div");
-    square.classList.add("square");
-    container.appendChild(square);
+// create grid 
 
+function createGrid(size) {
+    container.style.display = "grid";
+    container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
+    for (let i = 0; i < size * size; i++) {
+        const square = document.createElement("div");
+        square.classList.add("square");
+
+        square.addEventListener("mouseover", setRandomColor);
+
+        container.appendChild(square);
+    }
 }
 
-
-
-const squares = document.querySelectorAll(".square");
-squares.forEach(square => {
-    square.addEventListener('mouseover', setRandomColor);
-})
 
 function changeColor() {
     var letters = '0123456789ABCDEF';
@@ -46,22 +55,14 @@ function setRandomColor(e) {
     e.target.style.backgroundColor = changeColor();
 }
 
-function enableFadingTrail() {
-    document.querySelectorAll(".square").forEach(square => {
-        square.addEventListener("mouseover", () => {
-            square.style.backgroundColor = "black";
-        });
-        square.addEventListener("mouseout", () => {
-            square.style.backgroundColor = "white";
-        });
-    });
-}
 
+// reset button 
 const reset = document.querySelector("button");
 
 reset.addEventListener("click", resetColor);
 
 function resetColor() {
+    const squares = document.querySelectorAll(".square");
     squares.forEach(square => {
         square.style.backgroundColor = "white";
     })
